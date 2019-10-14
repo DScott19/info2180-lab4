@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded",() => {
 	let divs = document.getElementById("board").querySelectorAll("div");
 	divs.forEach(addSquare);
 	divs.forEach(addXorO);
+	divs.forEach(addhoverStyle);
 });	
 
 var AlternatePlay=[];
@@ -35,6 +36,18 @@ function addXorO(element){
 			AlternatePlay.push("O");
 			addO(element);
 		}
+	});
+
+}
+
+
+function addhoverStyle(square){
+	square.addEventListener("mouseenter",function(){
+		square.className="hover";
+	});
+
+	square.addEventListener("mouseleave", function (){
+		square.className="square";
 	});
 
 }
