@@ -38,21 +38,26 @@ function helpChooseWin(){
 		
 }
 
+function addXorOEvent(element){
+	while(element.innerHTML===""){
+	if (AlternatePlay.length<1 || AlternatePlay[AlternatePlay.length-1].innerHTML==="O"){
+		addX(element);
+		AlternatePlay.push(element);
+	}else{
+		AlternatePlay.push(element);
+		addO(element);
+	}
+	helpChooseWin();
+}
+	
+}
+
 
 function addXorO(element){
-	element.addEventListener("click",function(){
-		if (AlternatePlay.length<1 || AlternatePlay[AlternatePlay.length-1].innerHTML==="O"){
-				addX(element);
-				AlternatePlay.push(element);
-			
-		}	else{
-			AlternatePlay.push(element);
-			addO(element);
-		}
-		helpChooseWin();
-
+	element.addEventListener("click",function (){
+		addXorOEvent(element);
 	});
-	
+
 }
 
 
@@ -67,6 +72,15 @@ function addhoverStyle(square){
 
 }
 
+function checkDraw(){
+	let draw=true;
+	moves.forEach(function(x){
+		if(x.innerHTML==="")
+			draw= false;	
+	});
+	return draw;
+}
+
 
 function showWinner(winner){
 	original_status=document.getElementById("status").innerHTML;
@@ -77,10 +91,12 @@ function showWinner(winner){
 		document.getElementById("status").innerHTML="Congratulations! O is the Winner!" ;
 		document.getElementById("status").classList.add("you-won");
 	}else{
-		if(AlternatePlay.length>8 && winner==="No winner yet")
+		if(checkDraw() && winner==="No winner yet")
 			document.getElementById("status").innerHTML="Draw!!!!!!!!!!!";
 	}
 }	
+
+
 	
 
 
@@ -131,7 +147,6 @@ function chooseWinner(){
 
 function restartGame(){
 	let button=document.getElementsByClassName("btn");
-	console.log(button);
 	for (let i=0;i<button.length;i++){
 		button[i].addEventListener("click", function(){
 			document.getElementById("status").innerHTML=original_status;
@@ -147,4 +162,10 @@ function restartGame(){
 function removeXorO(play){
 		play.innerHTML="";
 
+}
+
+function disallowCheat(move){
+	if(move.innerHTML!==null){
+		move.removeEventListener("click",function (){addXorOEvent(move)});
+	}
 }
