@@ -30,12 +30,10 @@ function addO (playO){
 function helpChooseWin(){
 	if(AlternatePlay.length>4){
 		 let ultimateWinner=chooseWinner();
-		 if(ultimateWinner!=="No winner yet"){
+		if(ultimateWinner!=="No winner yet")
 			showWinner(ultimateWinner);
-		}
 	}
-	
-	
+		
 }
 
 
@@ -68,71 +66,61 @@ function addhoverStyle(square){
 }
 
 
-
-
-/*function chooseWinner(){
-	let i=0;
-	let winner;
-	while(i<AlternatePlay.length&&AlternatePlay.length>2){
-			if(AlternatePlay[i]===AlternatePlay[i+1]===AlternatePlay[i+2]){
-				winner=AlternatePlay[i];
-				i=AlternatePlay.length;
-			}
-			else{
-				i++;
-			}
-	}//end while*/
-
 function showWinner(winner){
 	if (winner==="X"){
 		document.getElementById("status").innerHTML="Congratulations! X is the Winner!" ;
 		document.getElementById("status").classList.add("you-won"); 
-	}else{
+	}else if (winner==="O"){
 		document.getElementById("status").innerHTML="Congratulations! O is the Winner!" ;
 		document.getElementById("status").classList.add("you-won");
-	}//end else
+	}else{
+		if(AlternatePlay.length===9)
+			document.getElementById("status").innerHTML="Draw!!!!!!!!!!!";
+	}
 }	
 	
+
+
 function chooseWinner(){
 
 	let i=0;
 	let win;
-	let winner=true;
-	console.log(moves[i+2].innerHTML);
 	
-	/*switch(winner){*/
+	switch(true){
 
-		if (moves[i].innerHTML===moves[i+1].innerHTML===moves[i+2].innerHTML){
-			console.log(moves+"1ST");
-			win=moves[i].innerHTML;
-		}
-		switch(winner){
-		case moves[i].innerHTML===moves[i+3].innerHTML===moves[i+6].innerHTML:
-			console.log(moves+"2ND");
+		case moves[i].innerHTML!=="" && moves[i].innerHTML===moves[i+1].innerHTML&&moves[i].innerHTML===moves[i+2].innerHTML:
 			win=moves[i].innerHTML;
 			break;
-		case moves[i+6].innerHTML===moves[i+7].innerHTML===moves[i+8].innerHTML:
-			console.log(moves);
-			win=moves[i+6].innerHTML;
+
+		case moves[i+6].innerHTML!=="" && moves[i+6].innerHTML===moves[i+3].innerHTML&&moves[i+6].innerHTML===moves[i].innerHTML:
+			win=moves[i].innerHTML;
 			break;
-		case moves[i+2].innerHTML===moves[i+5].innerHTML===moves[i+8].innerHTML:
-			console.log(moves);
-			win=moves[i+2].innerHTML;
+
+		case moves[i+7].innerHTML!=="" && moves[i+7].innerHTML===moves[i+6].innerHTML&&moves[i+7].innerHTML===moves[i+8].innerHTML:
+			win=moves[i+7].innerHTML;
 			break;
-		case moves[i+1].innerHTML===moves[i+4].innerHTML===moves[i+7].innerHTML:
-			console.log(moves);
+
+		case moves[i+8].innerHTML!=="" && moves[i+8].innerHTML===moves[i+2].innerHTML && moves[i+8].innerHTML===moves[i+5].innerHTML:
+			win=moves[i+5].innerHTML;
+			break;
+
+		case moves[i+1].innerHTML!=="" && moves[i+1].innerHTML===moves[i+4].innerHTML && moves[i+1].innerHTML===moves[i+7].innerHTML:
 			win=moves[i+1].innerHTML;
 			break;
-		case moves[i].innerHTML===moves[i+4].innerHTML===moves[i+8].innerHTML:
-			console.log(moves);
+
+		case moves[i+4].innerHTML!=="" && moves[i+4].innerHTML===moves[i].innerHTML&& moves[i+4].innerHTML===moves[i+8].innerHTML:
 			win=moves[i].innerHTML;
 			break;
-		case moves[i+2].innerHTML===moves[i+4].innerHTML===moves[i+6].innerHTML:
-			console.log(moves);
+
+		case moves[i+2].innerHTML!=="" && moves[i+2].innerHTML===moves[i+4].innerHTML &&moves[i+2].innerHTML ===moves[i+6].innerHTML:
 			win=moves[i+2].innerHTML;
 			break;
+
+		case moves[i+5].innerHTML!=="" && moves[i+5].innerHTML===moves[i+4].innerHTML&& moves[i+3].innerHTML===moves[i+5].innerHTML:
+			win=moves[i+3].innerHTML;
+			break;
+
 		default:
-			console.log(moves+"LAST");
 			win="No winner yet";
 	}
 	return win;
