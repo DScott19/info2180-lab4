@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded",() => {
 	divs.forEach(addhoverStyle);
 	helpChooseWin(divs);
 	moves=divs;
+	restartGame();
 });	
+let original_status;
 let moves;
 var AlternatePlay=[];
 
@@ -30,7 +32,7 @@ function addO (playO){
 function helpChooseWin(){
 	if(AlternatePlay.length>4){
 		 let ultimateWinner=chooseWinner();
-		if(ultimateWinner!=="No winner yet")
+		//if(ultimateWinner!=="No winner yet")
 			showWinner(ultimateWinner);
 	}
 		
@@ -67,6 +69,7 @@ function addhoverStyle(square){
 
 
 function showWinner(winner){
+	original_status=document.getElementById("status").innerHTML;
 	if (winner==="X"){
 		document.getElementById("status").innerHTML="Congratulations! X is the Winner!" ;
 		document.getElementById("status").classList.add("you-won"); 
@@ -74,7 +77,7 @@ function showWinner(winner){
 		document.getElementById("status").innerHTML="Congratulations! O is the Winner!" ;
 		document.getElementById("status").classList.add("you-won");
 	}else{
-		if(AlternatePlay.length===9)
+		if(AlternatePlay.length>8 && winner==="No winner yet")
 			document.getElementById("status").innerHTML="Draw!!!!!!!!!!!";
 	}
 }	
@@ -126,3 +129,22 @@ function chooseWinner(){
 	return win;
 }	
 
+function restartGame(){
+	let button=document.getElementsByClassName("btn");
+	console.log(button);
+	for (let i=0;i<button.length;i++){
+		button[i].addEventListener("click", function(){
+			document.getElementById("status").innerHTML=original_status;
+			document.getElementById("status").classList.remove("you-won");
+			moves.forEach(removeXorO);
+			
+			AlternatePlay=[];
+		});
+
+	}	
+}
+
+function removeXorO(play){
+		play.innerHTML="";
+
+}
